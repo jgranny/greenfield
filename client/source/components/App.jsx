@@ -15,6 +15,7 @@ export default class App extends React.Component {
 	 	}
 
 	 	this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleRemove = this.handleRemove.bind(this);
 		this.updateBudget = this.updateBudget.bind(this);
 		this.updateName = this.updateName.bind(this);
 		this.updatePrice = this.updatePrice.bind(this);
@@ -29,10 +30,10 @@ export default class App extends React.Component {
 		event.preventDefault();
 	}
 
-	handleRemove(x) {
-		console.log(x);
+	handleRemove(item) {
+		console.log(item);
 
-		removeListItem(x)
+		this.removeListItem(item)
 		event.preventDefault();
 	}
 
@@ -40,7 +41,7 @@ export default class App extends React.Component {
 	//Takes the list array and a name as a target
 	nestedIndexOf(arr, itemName) {
 		for(var i = 0; i < arr.length; i++) {
-			if(arr[i][0] === itemName){
+			if(arr[i].name === itemName){
 				return i;
 			}
 		}
@@ -91,15 +92,16 @@ export default class App extends React.Component {
 		}
 	}
 
-	removeListItem(name) {
-		//Find the index of the item to be removed
-		var index = nestedIndexOf(name)
+	removeListItem(item) {
 		//Same process as addListItem
 		var arr = this.state.list.slice();
+		//Find the index of the item to be removed
+		var index = this.nestedIndexOf(arr, item.name)
 
-		updateTotal(-(arr[index][1]))
+		this.updateTotal(-(item.price))
 
 		arr.splice(index, 1);
+		console.log('post splice arr', arr)
 
 		this.setState({list: arr})
 	}

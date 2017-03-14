@@ -4,7 +4,10 @@ import InlineEdit from './InlineEdit.jsx'
 
 
 export default function ListItem (props){
-  console.log(props.item)
+  var itemInfo = {
+    itemName: props.item.name,
+    itemPrice: props.item.price
+  }
 
   return (
     <li className="listItem">
@@ -17,6 +20,9 @@ export default function ListItem (props){
         <InlineEdit
           text={'$ ' + props.item.price}
         />
+        <button onClick={function(){props.handleRemove(props.item)}}>
+          <i className="fa fa-trash" aria-hidden="true"></i>
+        </button>
       </div>
     </li>
   )
