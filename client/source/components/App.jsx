@@ -29,6 +29,13 @@ export default class App extends React.Component {
 		event.preventDefault();
 	}
 
+	handleRemove('???') {
+		console.log('???');
+
+		removeListItem('???')
+		event.preventDefault();
+	}
+
 	//Helper function to find index of an item in list
 	//Takes the list array and a name as a target
 	nestedIndexOf(arr, itemName) {
@@ -107,7 +114,7 @@ export default class App extends React.Component {
 					updateTotal={this.updateTotal}
 					updateName={this.updateName}
 					updatePrice={this.updatePrice}
-					removeListItem={this.removeListItem}
+					handleRemove={this.handleRemove}
 				/>
 
 				<form onSubmit={this.handleSubmit}>
