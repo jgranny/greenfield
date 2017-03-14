@@ -3,27 +3,26 @@ import App from './App.jsx'
 import InlineEdit from './InlineEdit.jsx'
 
 
-export default function ListItem (props) {
+export default function ListItem (props){
+  console.log(props.item)
+
   return (
-    <ul className="listItems">
-      {props.list.map(function(item) {
-        return (
-          <li className="listItem">
-            <div className="half">
-              <InlineEdit
-                text={item.name}
-                updateName={props.updateName}
-                />
-            </div>
-            <div className="half right">
-              <InlineEdit
-                text={'$ ' + item.price}
-                updatePrice={props.updatePrice}
-                />
-            </div>
-        </li>
-        )
-      })}
-    </ul>
+    <li className="listItem">
+      <div className="half">
+        <InlineEdit
+          text={props.item.name}
+        />
+      </div>
+      <div className="half right">
+        <InlineEdit
+          text={'$ ' + props.item.price}
+        />
+      </div>
+    </li>
   )
 }
+
+/*-------------------
+22  updateName={props.updateName}
+28  updatePrice={props.updatePrice}
+-------------------*/
