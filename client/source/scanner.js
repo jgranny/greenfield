@@ -19,6 +19,7 @@ export default function Scanner () {
       locate: true,
       inputStream: {
         type: 'LiveStream',
+        target: document.querySelector('.scanner-window'),
         constraints: {
           width: 640, //Not sure on this
           height: 480, //Same here
