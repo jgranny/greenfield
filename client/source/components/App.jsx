@@ -5,6 +5,8 @@ import List from './List.jsx'
 import InlineEdit from './InlineEdit.jsx'
 import AddItem from './AddItem.jsx'
 import Footer from './Footer.jsx'
+import Quagga from 'quagga'
+import Scanner from '../scanner.js'
 
 export default class App extends React.Component {
 	constructor(props){
@@ -82,7 +84,7 @@ export default class App extends React.Component {
 
 
   //
-  // functions to update the state. 
+  // functions to update the state.
   //
 
 	updateBudget(num) {

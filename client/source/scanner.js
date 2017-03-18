@@ -1,16 +1,23 @@
 import Quagga from 'quagga';
 
+// let Scanner = {
+//   init: function() {
+//     console.log('scanner app')
+//   }
+// }
+
 export default function Scanner () {
   var App = {
     init: function() {
-      var self = this;
+      console.log('quagga console 1')
 
-      Quagga.init(this.state, function(err) {
+      Quagga.init(Scanner.state, function(err) {
+        console.log('quagga console 2')
         if (err) {
-          return self.handleError(err);
+          console.log(err)
+          return
         }
-
-        //App.attachListeners();
+        console.log('quagga initialized')
         Quagga.start();
       });
     },
@@ -19,7 +26,6 @@ export default function Scanner () {
       locate: true,
       inputStream: {
         type: 'LiveStream',
-        target: document.querySelector('.scanner-window'),
         constraints: {
           width: 640, //Not sure on this
           height: 480, //Same here
@@ -61,4 +67,12 @@ export default function Scanner () {
       debug: true
     }
   }
+
+  App.init();
+
+  Quagga.onProcessed(function() {});
+
+  Quagga.onDetected(function(){});
 }
+
+// export{Scanner}
