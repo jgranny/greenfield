@@ -6,6 +6,7 @@ import InlineEdit from './InlineEdit.jsx'
 import AddItem from './AddItem.jsx'
 import Footer from './Footer.jsx'
 import Quagga from 'quagga'
+// import Quagga from 'quagga'
 import Scanner from '../scanner.js'
 
 export default class App extends React.Component {
@@ -193,6 +194,7 @@ export default class App extends React.Component {
 					listName={this.state.listName}
 					clear={this.handleClear}
 				/>
+			<div id="interactive" className="viewport">work</div>
 			</div>
 		)
 	}
