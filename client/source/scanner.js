@@ -9,15 +9,11 @@ import Quagga from 'quagga';
 export default function Scanner () {
   var App = {
     init: function() {
-      console.log('quagga console 1')
-
       Quagga.init(Scanner.state, function(err) {
-        console.log('quagga console 2')
         if (err) {
           console.log(err)
           return
         }
-        console.log('quagga initialized')
         Quagga.start();
       });
     },

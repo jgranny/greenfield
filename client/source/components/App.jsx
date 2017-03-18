@@ -17,6 +17,7 @@ export default class App extends React.Component {
 	 		list: [],
 	 		validInput: "disabled",
 	 		listName: ''
+			scannerOn: null
 	 	}
 	 	this.handleClear = this.handleClear.bind(this);
 	 	this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,6 +28,7 @@ export default class App extends React.Component {
 		this.removeListItem = this.removeListItem.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this)
 		this.handleListChange = this.handleListChange.bind(this)
+		this.toggleScanner = this.toggleScanner.bind(this)
 	}
 
 	componentWillMount() {
@@ -167,6 +169,18 @@ export default class App extends React.Component {
 	}
 
 
+	toggleScanner() {
+		if(!this.state.scannerOn) {
+			console.log('----------------on----------------')
+			Scanner();
+			this.setState({scannerOn: true})
+		}
+		if(this.state.scannerOn){
+			console.log('---------------off----------------')
+			Quagga.stop();
+			this.setState({scannerOn: false})
+		}
+	}
 
 	render() {
 		return (
@@ -193,8 +207,10 @@ export default class App extends React.Component {
 					list={this.state.list}
 					listName={this.state.listName}
 					clear={this.handleClear}
+					example={'hello'}
+					toggleScanner={this.toggleScanner}
 				/>
-			<div id="interactive" className="viewport">work</div>
+			  <div id="interactive" className="viewport">work</div>
 			</div>
 		)
 	}
