@@ -177,6 +177,9 @@ export default class App extends React.Component {
 		}
 		if(this.state.scannerOn){
 			console.log('---------------off----------------')
+
+			Quagga.offDetected();
+			Quagga.offProcessed();
 			Quagga.stop();
 			this.setState({scannerOn: false})
 		}
@@ -210,7 +213,7 @@ export default class App extends React.Component {
 					example={'hello'}
 					toggleScanner={this.toggleScanner}
 				/>
-			  <div id="interactive" className="viewport">work</div>
+			  <div id="interactive" className="viewport"></div>
 			</div>
 		)
 	}

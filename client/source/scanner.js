@@ -18,57 +18,59 @@ export default function Scanner () {
       });
     },
     state: {
-      numOfWorkers: 4,
-      locate: true,
       inputStream: {
         type: 'LiveStream',
         constraints: {
-          width: 640, //Not sure on this
-          height: 480, //Same here
-          facingMode: 'environment'
-        },
-        area: { //defines rectagle of the detection area
-          top: '0%', //top offset
-          right: '0%',
-          left: '0%',
-          bottom: '0%'
-        }
-      },
-      frequency: 10,
-      decoder: {
-        readers: [
-          'ean_reader',    //These barcodes should be inorder of most expected to encounter
-          'ean_8_reader',    //EAN seem to be used for groceries, so that's why they're included
-          'upc_reader'
-        ],
-        debug: {
-          drawBoundingBox: true,
-          showFrequency: true,
-          drawScanline: true,
-          showPattern: true
+          width: {min: 640}, //Not sure on this
+          height: {min: 480}, //Same here
+          facingMode: 'environment',
+          aspectRatio: {min: 1, max: 2}
         }
       },
       locator: {
-        halfSample: true,
-        patchSize: 'medium',
-        //Debug should be deleted after setup
-        debug: {
-          showCanvas: true,
-          showPatches: true,
-          showFoundPatches: true,
-          showSkeleton: true,
-          showLables: true
-        }
+        patchSize: 'large',
+        halfSample: false
       },
-      debug: true
+      decoder: {
+        readers: [{format: 'ean_reader', config: {}}] //maybe add , config: {}
+      },
+      locate: true
     }
   }
 
   App.init();
 
-  Quagga.onProcessed(function() {});
+  Quagga.onProcessed(function(result) {
+    var drawingCtx = Quagga.canvas.ctx.overlay;
+    var drawingCanvas = Quagga.canvas.dom.overlay;
 
-  Quagga.onDetected(function(){});
+    if (result) {
+      if (result.boxes) {
+        drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+        result.boxes.filter(function (box) {
+            return box !== result.box;
+        }).forEach(function (box) {
+            Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+        });
+      }
+
+      if (result.box) {
+        Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+      }
+
+      if (result.codeResult && result.codeResult.code) {
+        Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+      }
+    }
+  });
+
+  Quagga.onDetected(function(result){
+    console.log('result------------>', result.codeResult.code);
+
+    Quagga.offDetected();
+    Quagga.offProcessed();
+    Quagga.stop();
+  });
 }
 
 // export{Scanner}
