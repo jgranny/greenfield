@@ -213,6 +213,7 @@ export default class App extends React.Component {
 					example={'hello'}
 					toggleScanner={this.toggleScanner}
 				/>
+			<button onClick={this.toggleScanner}>scanner</button>
 			  <div id="interactive" className="viewport"></div>
 			</div>
 		)
