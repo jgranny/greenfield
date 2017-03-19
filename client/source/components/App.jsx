@@ -16,7 +16,7 @@ export default class App extends React.Component {
 	 		budget: 0,
 	 		list: [],
 	 		validInput: "disabled",
-	 		listName: ''
+	 		listName: '',
 			scannerOn: null
 	 	}
 	 	this.handleClear = this.handleClear.bind(this);
